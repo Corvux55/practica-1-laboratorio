@@ -139,3 +139,4 @@ void prueba_punto3()
     cout << "  *p++        = " << *( *p++ ) << endl;  // con puntero: devuelve 77
 
 }
+//prueba de alkgo
