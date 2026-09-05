@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-void fun_a(int *px, int *py);
+/*void fun_a(int *px, int *py);
 void fun_b(int a[], int tam);
 void prueba_fun_c();
 void prueba_punto3();
@@ -28,7 +28,7 @@ void fun_b(int a[], int tam)
         fun_a(&b[f], &b[l]);
     }
 }
-
+*/
 /*
     Con ayuda del debugger, examine la representacion en memoria del arreglo array y responda:
 
@@ -139,4 +139,147 @@ void prueba_punto3()
     cout << "  *p++        = " << *( *p++ ) << endl;  // con puntero: devuelve 77
 
 }
-//prueba de alkgo
+
+void problema1()
+{
+    int monto;
+    cout << "Ingrese un monto: ";
+    cin >> monto;
+    if (monto < 0){
+        cout << "Valor no valido, ingrese un valor positivo: ";
+        cin >> monto;
+    }
+    int valores[]={50000,20000,10000,5000,2000,1000,500,200,100,50};
+    int cantidades[10]={10};
+    int total_valores=10;
+    for (int i=0; i<total_valores; i++){
+        cantidades[i]= monto/valores[i];
+        monto = monto%valores[i];
+    }
+    cout << "Billetes 50000: " << cantidades[0] << endl;
+    cout << "Billetes 20000: " << cantidades[1] << endl;
+    cout << "Billetes 10000: " << cantidades[2] << endl;
+    cout << "Billetes 5000: " << cantidades[3] << endl;
+    cout << "Billetes 2000: " << cantidades[4] << endl;
+    cout << "Billetes 1000: " << cantidades[5] << endl;
+    cout << "Monedas 500: " << cantidades[6] << endl;
+    cout << "Monedas 200: " << cantidades[7] << endl;
+    cout << "Monedas 100: " << cantidades[8] << endl;
+    cout << "Monedas 50: " << cantidades[9] << endl;
+    cout << "Faltante: : " << monto << endl;
+}
+void problema2()
+{
+    const int N = 200;
+    char letras[N];
+    int conteo[26] = {0};
+
+    int semilla;
+    semilla = (int)(long)&semilla;   // direccion del stack, cambia en cada ejecucion
+    for (int i = 0; i < N; i++)
+    {
+        semilla = semilla * 1103515245 + 12345;   // generador propio
+        letras[i] = 'A' + semilla % 26;
+        cout << letras[i];
+    }
+    cout << endl;
+
+    for (int i = 0; i < N; i++)
+        conteo[letras[i] - 'A']++;
+
+    for (int i = 0; i < 26; i++)
+        if (conteo[i] > 0)
+            cout << char('A' + i) << ": " << conteo[i] << endl;
+}
+void problema3(){
+    char cadena1[50],cadena2[50];
+    cout << "Ingrese la primera cadena: \n";
+    cin >> cadena1;
+    cout << "Ingrese la segunda cadena: \n";
+    cin >> cadena2;
+    int lon1=0,lon2=0;
+    while (cadena1[lon1]!='\0'){
+        lon1++;
+    }
+    while (cadena2[lon2]!='\0'){
+        lon2++;
+    }
+    bool iguales=true;
+    if (lon1 != lon2){
+        iguales = false;
+    }
+    else{
+        for(int i=0; i<lon1; i++){
+            if (cadena1[i] != cadena2[i]){
+                iguales = false;
+                break;
+            }
+        }
+    }
+    if (iguales){
+        cout << "Las cadenas son iguales";
+    }
+    else{
+        cout << "Las cadenas son diferentes";
+    }
+}
+void problema4(){
+    char cadena[50];
+    cout << "Ingresa la cadena de numeros: ";
+    cin >>cadena;
+    int numero=0;
+    int i=0;
+    while (cadena[i] != '\0'){
+        int digito = cadena[i]-'0';
+        numero = numero * 10 + digito;
+        i++;
+    }
+    cout << "El numero entero obtenido es: "<<numero<<endl;
+}
+void int_a_cadena(int numero, char cadena[])
+{
+    int i = 0;
+    long n = numero;
+    if (n < 0){
+        cadena[i++] = '-';
+        n = -n;
+    }
+    int inicio = i;
+    do {
+        cadena[i++] = char('0' + n % 10);
+        n = n / 10;
+    } while (n > 0);
+    cadena[i] = '\0';
+    for (int f = inicio, l = i - 1; f < l; f++, l--){
+        char tmp = cadena[f];
+        cadena[f] = cadena[l];
+        cadena[l] = tmp;
+    }
+}
+void problema5(){
+    int numero;
+    char cadena[50];
+    cout << "Ingrese un numero entero: ";
+    cin >> numero;
+    int_a_cadena(numero, cadena);
+    cout << "La cadena obtenida es: " << cadena << endl;
+}
+void problema6(){
+    char cadena[50];
+    char original[50];
+    cout << "Ingrese una cadena: ";
+    cin >> cadena;
+    int i;
+    for (i = 0; cadena[i] != '\0'; i++)
+        original[i] = cadena[i];
+    original[i] = '\0';
+    for (i = 0; cadena[i] != '\0'; i++)
+        if (cadena[i] >= 'a' && cadena[i] <= 'z')
+            cadena[i] = cadena[i] - 'a' + 'A';
+    cout << "Original: " << original << ". En mayusculas: " << cadena << endl;
+}
+int main()
+{
+    problema6();
+    return 0;
+}
